@@ -2,6 +2,7 @@
 *.iml
 .git
 .gitconfig
+.gitignore
 .idea
 .DS_Store
 *.class
