@@ -32,5 +32,19 @@ class ProgramParserImpl extends ProgramParser {
 object Driver extends App{
   val programParser = new ProgramParserImpl
 
-  println(programParser.parse("diego"))
+  // println(programParser.parse("diego"))
+    import scala.io.Source
+    val lines = Source.fromFile(file).getLines
+    val instructionList = Vector()
+    for (line <- lines) {
+      val fields = line.split(" ")
+      if (fields.nonEmpty) {
+        addToVector(line, instructionList)
+        println(line)
+      }
+    }
+    println(instructionList)
+    val vector: Vector[Int] = Vector(1, 2, 3)
+    val inst: Instruction = new Instruction("iconst", vector)
+    Vector(inst, inst)
 }
