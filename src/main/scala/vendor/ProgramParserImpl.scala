@@ -15,16 +15,24 @@ class ProgramParserImpl extends ProgramParser {
     */
   override def parse(file: String): InstructionList = {
     val lines = Source.fromFile(file).getLines
-    val instructionList = Vector()
+
     for (line <- lines) {
-      val fields = line.split(" ")
-      if (fields.nonEmpty) {
-        println(line)
-      }
+      var fields = line.split(" ")
+      val name = fields(0)
+      val ints = fields.filter(e => e.eq(Int))
+
+      println("name", name)
+      println("ints", ints.foreach(e => print(e, " ")))
+//      val name = fields(0)
+//
+//      val x = fields.drop(0)
+//      println(x)
+//      println(x.map(l => l).toVector)
+//      println(args)
+//      val i = new Instruction(name, args)
+//      println(i.toString)
     }
-    println(instructionList)
-    val vector: Vector[Int] = Vector(1, 2, 3)
-    val inst: Instruction = new Instruction("iconst", vector)
+    val inst: Instruction = new Instruction("iconst", Vector(1,2,3))
     Vector(inst, inst)
   }
 
@@ -36,4 +44,10 @@ class ProgramParserImpl extends ProgramParser {
     * @return an instruction list
     */
   override def parseString(string: String): InstructionList = Vector()
+}
+
+object Tester extends App {
+  val x = new ProgramParserImpl
+
+  x.parse("programs/p03.vm")
 }
