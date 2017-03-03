@@ -21,13 +21,6 @@ class ProgramParserImpl extends ProgramParser {
       val fields = line.split(" ")
       val args = fields.filter(field => fields.indexOf(field) > 0).map(x => x.toInt).toVector
       instructionList += new Instruction(fields(0), args)
-    val vector: Vector[Int] = Vector(1, 2, 3)
-    val inst: Instruction = new Instruction("iconst", vector)
-    for(insn <- instructionList){
-      println(insn.getClass)
-      println(insn.toString)
-    }
-    println(instructionList.toVector.getClass)
     instructionList.toVector
   }
 
