@@ -14,26 +14,21 @@ class ProgramParserImpl extends ProgramParser {
     * @return an instruction list
     */
   override def parse(file: String): InstructionList = {
+    import scala.io.Source
     val lines = Source.fromFile(file).getLines
-
+    var instructionList = new ListBuffer[Instruction]
     for (line <- lines) {
-      var fields = line.split(" ")
-      val name = fields(0)
-      val ints = fields.filter(e => e.eq(Int))
-
-      println("name", name)
-      println("ints", ints.foreach(e => print(e, " ")))
-//      val name = fields(0)
-//
-//      val x = fields.drop(0)
-//      println(x)
-//      println(x.map(l => l).toVector)
-//      println(args)
-//      val i = new Instruction(name, args)
-//      println(i.toString)
+      val fields = line.split(" ")
+      val args = fields.filter(field => fields.indexOf(field) > 0).map(x => x.toInt).toVector
+      instructionList += new Instruction(fields(0), args)
+    val vector: Vector[Int] = Vector(1, 2, 3)
+    val inst: Instruction = new Instruction("iconst", vector)
+    for(insn <- instructionList){
+      println(insn.getClass)
+      println(insn.toString)
     }
-    val inst: Instruction = new Instruction("iconst", Vector(1,2,3))
-    Vector(inst, inst)
+    println(instructionList.toVector.getClass)
+    instructionList.toVector
   }
 
   /**
