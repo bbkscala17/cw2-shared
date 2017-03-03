@@ -1,4 +1,5 @@
 package vendor
+import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
 /**
@@ -14,14 +15,7 @@ class ProgramParserImpl extends ProgramParser {
     * @return an instruction list
     */
   override def parse(file: String): InstructionList = {
-    import scala.io.Source
-    val lines = Source.fromFile(file).getLines
-    var instructionList = new ListBuffer[Instruction]
-    for (line <- lines) {
-      val fields = line.split(" ")
-      val args = fields.filter(field => fields.indexOf(field) > 0).map(x => x.toInt).toVector
-      instructionList += new Instruction(fields(0), args)
-    instructionList.toVector
+    parseLine(Source.fromFile(file).getLines.toArray[String])
   }
 
   /**
@@ -31,11 +25,18 @@ class ProgramParserImpl extends ProgramParser {
     * @param string the string to parse
     * @return an instruction list
     */
-  override def parseString(string: String): InstructionList = Vector()
-}
+  override def parseString(string: String): InstructionList = {
+    parseLine(string.split("\n"))
+  }
 
-object Tester extends App {
-  val x = new ProgramParserImpl
+  private def parseLine(lines: Array[String]): InstructionList = {
+    var instructionList = new ListBuffer[Instruction]
+    for (line <- lines) {
+      val fields = line.split(" ")
+      val args = fields.filter(field => fields.indexOf(field) > 0).map(x => x.toInt).toVector
+      instructionList += new Instruction(fields(0), args)
+    }
+    instructionList.toVector
+  }
 
-  x.parse("programs/p03.vm")
 }

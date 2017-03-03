@@ -28,15 +28,9 @@ class PublicVendorParserSuite extends FunSuite {
 
   test("[6] vendor parser should parse a program file to correct args") {
     val insts = vp.parse("programs/p03.vm")
-    val all = Vector(Vector(7), Vector(7), Vector(), Vector(), Vector(2), Vector(), Vector(4), Vector(1), Vector(), Vector(2), Vector(), Vector(1), Vector(), Vector(), Vector(), Vector(), Vector(), Vector(), Vector())
+    val all = Vector(Vector(7), Vector(7), Vector(), Vector(), Vector(2), Vector(), Vector(4), Vector(), Vector(1), Vector(), Vector(2), Vector(), Vector(1), Vector(), Vector(), Vector(), Vector(), Vector(), Vector(), Vector())
     for (i <- insts.indices) {
       assert(insts(i).args == all(i))
     }
   }
-
-  // for(insn <- instructionList){
-  //     println(insn.getClass)
-  //     println(insn.toString)
-  //   }
-  //   println(instructionList.toVector.getClass)
 }
