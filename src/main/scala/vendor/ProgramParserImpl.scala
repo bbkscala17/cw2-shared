@@ -15,7 +15,7 @@ class ProgramParserImpl extends ProgramParser {
     * @return an instruction list
     */
   override def parse(file: String): InstructionList = {
-    parseLine(Source.fromFile(file).getLines.toArray[String])
+    parseLines(Source.fromFile(file).getLines.toArray[String])
   }
 
   /**
@@ -26,14 +26,24 @@ class ProgramParserImpl extends ProgramParser {
     * @return an instruction list
     */
   override def parseString(string: String): InstructionList = {
-    parseLine(string.split("\n"))
+    parseLines(string.split("\n"))
   }
 
-  private def parseLine(lines: Array[String]): InstructionList = {
+  /**
+    * Take each line of instructions (e.g. iconst 7) and break it down
+    * into fields, containing name (iconst) and args (7)
+    * Then take each field from each line, and make an Instruction from it
+    * Build all the instructions into a mutable list buffer and convert this
+    * to a vector to return
+    *
+    * @param lines the lines to be parsed
+    * @return and InstructionList
+    */
+   private def parseLines(lines: Array[String]): InstructionList = {
     var instructionList = new ListBuffer[Instruction]
     for (line <- lines) {
       val fields = line.split(" ")
-      val args = fields.filter(field => fields.indexOf(field) > 0).map(x => x.toInt).toVector
+      val args = fields.drop(1).map(x => x.toInt).toVector
       instructionList += new Instruction(fields(0), args)
     }
     instructionList.toVector
