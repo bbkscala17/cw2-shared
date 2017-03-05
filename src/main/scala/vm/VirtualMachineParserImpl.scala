@@ -1,6 +1,6 @@
 package vm
-import bc.{ByteCode, ByteCodeParserImpl, ByteCodeValues}
-import vendor.{ProgramParserImpl, Instruction}
+import bc.{ByteCode, ByteCodeParserImpl, ByteCodeValues, InvalidBytecodeException}
+import vendor.{Instruction, ProgramParserImpl}
 
 import scala.collection.mutable.ListBuffer
 
@@ -40,11 +40,16 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
   private def parseInstructionList(instructionList: Vector[Instruction]): Vector[ByteCode]  ={
     var byteVectorBuffer = new ListBuffer[Byte]
     instructionList.foreach(i => {
-      if(i.args.isEmpty) {
-        byteVectorBuffer += bytecode(i.name)
-      } else {
-        byteVectorBuffer += bytecode(i.name)
-        byteVectorBuffer += i.args(0).toByte
+      try {
+        if(i.args.isEmpty) {
+          byteVectorBuffer += bytecode(i.name)
+        } else {
+          byteVectorBuffer += bytecode(i.name)
+          byteVectorBuffer += i.args(0).toByte
+        }
+      } catch {
+        case nse: NoSuchElementException => throw new InvalidBytecodeException("invalid byte code exception at: virtual machine parser implementation")
+        case e: Exception => "general error"
       }
     })
 
