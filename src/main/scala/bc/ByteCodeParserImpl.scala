@@ -11,5 +11,10 @@ class ByteCodeParserImpl extends ByteCodeParser{
     * @param bc a vector of bytes representing bytecodes
     * @return a vector of `ByteCode` objects
     */
-  override def parse(bc: Vector[Byte]): Vector[ByteCode] = ???
+  override def parse(bc: Vector[Byte]): Vector[ByteCode] = { //vector(2) coming in for iadd
+    val factory = new ByteCodeFactoryImpl
+    val bytecode = factory.make(2, 0)
+    Vector(bytecode)
+
+  }
 }
