@@ -1,11 +1,11 @@
 package bc
-
 import vm.VirtualMachine
 
-class Iconst(NUM: Int) extends ByteCode {
-
-
-  override val code: Byte = bytecode("iconst")
+/**
+  * Created by diegoromero on 05/03/2017.
+  */
+class Ineg extends ByteCode {
+  override val code: Byte = bytecode("ineg")
 
   /**
     * Returns a new [[VirtualMachine]] after executing this bytecode operation.
@@ -13,5 +13,5 @@ class Iconst(NUM: Int) extends ByteCode {
     * @param vm the initial virtual machine
     * @return a new virtual machine
     */
-  override def execute(vm: VirtualMachine): VirtualMachine = vm.push(NUM)
+  override def execute(vm: VirtualMachine): VirtualMachine = vm.push(-vm.pop()._1)
 }
