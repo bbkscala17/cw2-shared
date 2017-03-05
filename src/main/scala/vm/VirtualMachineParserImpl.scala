@@ -1,7 +1,12 @@
 package vm
-import bc.ByteCode
+import bc.{ByteCode, ByteCodeParserImpl, ByteCodeValues, Iadd}
+import com.sun.org.apache.bcel.internal.generic.InstructionList
+import vendor.ProgramParserImpl
 
-class VirtualMachineParserImpl extends VirtualMachineParser{
+import scala.collection.mutable.ListBuffer
+import scala.io.Source
+
+class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
   /**
     * Returns a vector of [[bc.ByteCode]].
     *
@@ -12,7 +17,24 @@ class VirtualMachineParserImpl extends VirtualMachineParser{
     * @param file the file containing a program
     * @return a vector of bytecodes
     */
-  override def parse(file: String): Vector[ByteCode] = ???
+  override def parse(file: String): Vector[ByteCode] = {
+    val programParserImpl = new ProgramParserImpl
+    val instructionList: programParserImpl.InstructionList = programParserImpl.parse(file)
+
+
+    var byteVectorBuffer = new ListBuffer[Byte]
+    instructionList.foreach(i => {
+      if(i.args.isEmpty) {
+        byteVectorBuffer += bytecode(i.name)
+      } else {
+        byteVectorBuffer += bytecode(i.name)
+        byteVectorBuffer += i.args(0).toByte
+      }
+    })
+
+    val byteCodeParserImpl = new ByteCodeParserImpl
+    byteCodeParserImpl.parse(byteVectorBuffer.toVector)
+  }
 
   /**
     * Returns a vector of [[bc.ByteCode]].

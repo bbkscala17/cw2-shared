@@ -15,7 +15,9 @@ class PublicByteCodeParserSuite extends FunSuite with ByteCodeValues {
 
   test("[5] byte code parser should parse a sequence of bytecode") {
     val code = Vector(bytecode("iconst"), 4.toByte, bytecode("iconst"), 5.toByte, bytecode("iadd"))
+    println(code)
     val bc = bcp.parse(code)
+    println(bc)
     assert(bc.length == 3, "did not parse four bytecodes")
     assert(bc(0).code == bytecode("iconst"))
     assert(bc(1).code == bytecode("iconst"))
