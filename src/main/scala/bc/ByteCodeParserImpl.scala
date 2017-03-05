@@ -14,15 +14,21 @@ class ByteCodeParserImpl extends ByteCodeParser {
     * @return a vector of `ByteCode` objects
     */
   override def parse(bc: Vector[Byte]): Vector[ByteCode] = {
-    //vector(2) coming in for iadd
+    //TODO although it works, this is nauseating and needs to be done Scala style
     val factory = new ByteCodeFactoryImpl
     var toReturn = new ListBuffer[ByteCode]
-    for (x <- 0 to bc.length - 1) {
-      if (bc(x) != bytecode("iconst") && (bc.length ==1 || (x > 0 && bc(x - 1) != bytecode("iconst")))) {
-        //current one and previous one are not inconst
-        toReturn += factory.make(bc(x))
-      } else if (bc(x) == bytecode("iconst") && x + 1 < bc.length) {
-        toReturn += factory.make(bc(x), bc(x + 1))
+    var remainingBytes = bc
+    while(remainingBytes.nonEmpty){
+      val byte1 = remainingBytes(0)
+      remainingBytes = remainingBytes.drop(1)
+      if(byte1 == bytecode("iconst")){
+        val byte2 = remainingBytes(0)
+        remainingBytes = remainingBytes.drop(1)
+        val obj = factory.make(byte1, byte2)
+        toReturn += obj
+      } else {
+        val obj = factory.make(byte1)
+        toReturn += obj
       }
     }
     toReturn.toVector
