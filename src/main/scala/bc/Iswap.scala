@@ -19,4 +19,5 @@ class Iswap extends ByteCode {
     vm.push(first)
     vm.push(second)
   }
+  override def toString: String = "iswap"
 }

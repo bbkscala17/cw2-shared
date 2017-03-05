@@ -14,4 +14,6 @@ class Iadd extends ByteCode {
     */
 
   override def execute(vm: VirtualMachine): VirtualMachine = vm.push(vm.pop()._1 + vm.pop()._1)
+
+  override def toString: String = "iadd"
 }

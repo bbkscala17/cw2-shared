@@ -15,4 +15,5 @@ class Isub extends ByteCode {
     * @return a new virtual machine
     */
   override def execute(vm: VirtualMachine): VirtualMachine = vm.push(vm.pop()._1 - vm.pop()._1)
+  override def toString: String = "isub"
 }

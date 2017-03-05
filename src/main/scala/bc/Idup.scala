@@ -18,4 +18,5 @@ class Idup extends ByteCode {
     vm.push(value)
     vm.push(value)
   }
+  override def toString: String = "idup"
 }

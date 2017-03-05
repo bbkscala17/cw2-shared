@@ -19,4 +19,6 @@ class Print  extends ByteCode {
     println(vm.pop()._1)
     vm
   }
+
+  override def toString: String = "print"
 }

@@ -14,4 +14,5 @@ class Iconst(NUM: Int) extends ByteCode {
     * @return a new virtual machine
     */
   override def execute(vm: VirtualMachine): VirtualMachine = vm.push(NUM)
+  override def toString: String = "iconst"
 }
