@@ -7,6 +7,10 @@ import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
 class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
+
+  val programParserImpl = new ProgramParserImpl
+  val byteCodeParserImpl = new ByteCodeParserImpl
+
   /**
     * Returns a vector of [[bc.ByteCode]].
     *
@@ -18,9 +22,7 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
     * @return a vector of bytecodes
     */
   override def parse(file: String): Vector[ByteCode] = {
-    val programParserImpl = new ProgramParserImpl
     val instructionList: programParserImpl.InstructionList = programParserImpl.parse(file)
-
 
     var byteVectorBuffer = new ListBuffer[Byte]
     instructionList.foreach(i => {
@@ -32,7 +34,6 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
       }
     })
 
-    val byteCodeParserImpl = new ByteCodeParserImpl
     byteCodeParserImpl.parse(byteVectorBuffer.toVector)
   }
 
@@ -46,5 +47,7 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
     * @param str a string containing a program
     * @return a vector of bytecodes
     */
-  override def parseString(str: String): Vector[ByteCode] = ???
+  override def parseString(str: String): Vector[ByteCode] = {
+
+  }
 }
