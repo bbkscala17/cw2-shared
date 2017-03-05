@@ -2,9 +2,6 @@ package vendor
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
-/**
-  * Created by diegoromero on 03/03/2017.
-  */
 class ProgramParserImpl extends ProgramParser {
 
   /**

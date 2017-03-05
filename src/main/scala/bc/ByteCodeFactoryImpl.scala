@@ -9,6 +9,9 @@ class ByteCodeFactoryImpl extends ByteCodeFactory{
     * the bytecode requires arguments then an optional integer
     * argument is provided.
     *
+    * Takes a byte and an optional integer argument and returns a ByteCode
+    * object from them, for each of the 12 different bytecodes iconst, iadd etc
+    *
     * This method should throw an [[InvalidBytecodeException]] if the
     * given bytecode value is unknown.
     *

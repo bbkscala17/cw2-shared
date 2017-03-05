@@ -7,7 +7,7 @@ class PublicByteCodeParserSuite extends FunSuite with ByteCodeValues {
   val bcp = VirtualMachineFactory.byteCodeParser
 
   test("[2] byte code parser should parse a single bytecode") {
-    val code = Vector(bytecode("iadd"))
+    val code = Vector(bytecode("iadd")) // returns Vector(2) because iadd is the second element in "bytcode" which is a map
     val bc = bcp.parse(code)
     assert(bc.length == 1, "did not parse one bytecode")
     assert(bc(0).code == bytecode("iadd"), "did not have the correct code")
