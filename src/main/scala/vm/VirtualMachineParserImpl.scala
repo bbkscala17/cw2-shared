@@ -1,10 +1,8 @@
 package vm
-import bc.{ByteCode, ByteCodeParserImpl, ByteCodeValues, Iadd}
-import com.sun.org.apache.bcel.internal.generic.InstructionList
-import vendor.ProgramParserImpl
+import bc.{ByteCode, ByteCodeParserImpl, ByteCodeValues}
+import vendor.{ProgramParserImpl, Instruction}
 
 import scala.collection.mutable.ListBuffer
-import scala.io.Source
 
 class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
 
@@ -22,19 +20,7 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
     * @return a vector of bytecodes
     */
   override def parse(file: String): Vector[ByteCode] = {
-    val instructionList: programParserImpl.InstructionList = programParserImpl.parse(file)
-
-    var byteVectorBuffer = new ListBuffer[Byte]
-    instructionList.foreach(i => {
-      if(i.args.isEmpty) {
-        byteVectorBuffer += bytecode(i.name)
-      } else {
-        byteVectorBuffer += bytecode(i.name)
-        byteVectorBuffer += i.args(0).toByte
-      }
-    })
-
-    byteCodeParserImpl.parse(byteVectorBuffer.toVector)
+    parseInstructionList(programParserImpl.parse(file))
   }
 
   /**
@@ -48,6 +34,20 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
     * @return a vector of bytecodes
     */
   override def parseString(str: String): Vector[ByteCode] = {
+    parseInstructionList(programParserImpl.parseString(str))
+  }
 
+  private def parseInstructionList(instructionList: Vector[Instruction]): Vector[ByteCode]  ={
+    var byteVectorBuffer = new ListBuffer[Byte]
+    instructionList.foreach(i => {
+      if(i.args.isEmpty) {
+        byteVectorBuffer += bytecode(i.name)
+      } else {
+        byteVectorBuffer += bytecode(i.name)
+        byteVectorBuffer += i.args(0).toByte
+      }
+    })
+
+    byteCodeParserImpl.parse(byteVectorBuffer.toVector)
   }
 }
