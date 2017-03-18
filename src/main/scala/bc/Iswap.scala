@@ -1,5 +1,5 @@
 package bc
-import vm.VirtualMachine
+import vm.{MachineUnderflowException, VirtualMachine}
 
 /**
   * Created by diegoromero on 05/03/2017.
@@ -14,10 +14,14 @@ class Iswap extends ByteCode {
     * @return a new virtual machine
     */
   override def execute(vm: VirtualMachine): VirtualMachine = {
-    val first: Int = vm.pop()._1
-    val second: Int = vm.pop()._1
-    vm.push(first)
-    vm.push(second)
+    try {
+      val first: Int = vm.pop()._1
+      val second: Int = vm.pop()._1
+      vm.push(first)
+      vm.push(second)
+    } catch {
+      case e: Exception => throw new MachineUnderflowException(e.toString)
+    }
   }
   override def toString: String = "iswap"
 }

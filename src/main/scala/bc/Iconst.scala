@@ -1,6 +1,6 @@
 package bc
 
-import vm.VirtualMachine
+import vm.{MachineUnderflowException, VirtualMachine}
 
 class Iconst(NUM: Int) extends ByteCode {
 
@@ -13,6 +13,12 @@ class Iconst(NUM: Int) extends ByteCode {
     * @param vm the initial virtual machine
     * @return a new virtual machine
     */
-  override def execute(vm: VirtualMachine): VirtualMachine = vm.push(NUM)
+  override def execute(vm: VirtualMachine): VirtualMachine = {
+    try {
+      vm.push(NUM)
+    } catch {
+      case e: Exception => throw new MachineUnderflowException(e.toString)
+    }
+  }
   override def toString: String = "iconst " + NUM
 }

@@ -3,9 +3,6 @@ import bc.ByteCode
 
 import scala.collection.mutable
 
-//TODO machineunderflowexception
-
-
 /**
   * Represents a stack-based virtual machine.
   *

@@ -71,6 +71,14 @@ class PublicVirtualMachineSuite extends FunSuite {
     assert(next._2.state.head == 1)
   }
 
+  test("[2] other instructions should work importing form a file too") {
+    val bc = vmp.parse("programs/p02-bad-stack.vm")
+    var next = vm.executeOne(bc)
+    1 to 20 foreach { _ => {
+      next = next._2.executeOne(next._1)
+    }}
+  }
+
   test("[2] iswap should work correctly") {
     val bc  = vmp.parseString("iconst 1\niconst 2\niswap")
     var next = vm.executeOne(bc)

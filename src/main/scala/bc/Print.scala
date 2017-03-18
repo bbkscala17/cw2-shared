@@ -1,6 +1,6 @@
 package bc
 
-import vm.VirtualMachine
+import vm.{MachineUnderflowException, VirtualMachine}
 
 class Print  extends ByteCode {
 
@@ -16,8 +16,12 @@ class Print  extends ByteCode {
     */
 
   override def execute(vm: VirtualMachine): VirtualMachine = {
-    println(vm.pop()._1)
-    vm
+    try {
+      println(vm.pop()._1)
+      vm
+    } catch {
+      case e: Exception => throw new MachineUnderflowException(e.toString)
+    }
   }
 
   override def toString: String = "print"

@@ -1,6 +1,6 @@
 package bc
 
-import vm.VirtualMachine
+import vm.{MachineUnderflowException, VirtualMachine}
 
 class Iadd extends ByteCode {
 
@@ -13,7 +13,13 @@ class Iadd extends ByteCode {
     * @return a new virtual machine
     */
 
-  override def execute(vm: VirtualMachine): VirtualMachine = vm.push(vm.pop()._1 + vm.pop()._1)
+  override def execute(vm: VirtualMachine): VirtualMachine = {
+    try {
+      vm.push(vm.pop()._1 + vm.pop()._1)
+    } catch {
+      case e: Exception => throw new MachineUnderflowException(e.toString)
+    }
+  }
 
   override def toString: String = "iadd"
 }
