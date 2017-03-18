@@ -1,6 +1,10 @@
 package vm
 import bc.ByteCode
 
+import factory.VirtualMachineFactory
+
+import scala.collection.mutable
+
 /**
   * Represents a stack-based virtual machine.
   *
