@@ -1,6 +1,19 @@
 package vm
 import bc.ByteCode
 
+//TODO machineunderflowexception
+
+
+/**
+  * Represents a stack-based virtual machine.
+  *
+  * An implementation of a virtual machine is capable of executing
+  * a vector of [[bc.ByteCode]] values. This is where the command
+  * pattern comes into play! That is, we defer the execution of
+  * each bytecode until it is executed by the virtual machine.
+  *
+  */
+
 class VirtualMachineImpl extends VirtualMachine{
   /**
     * Executes a vector of bytecodes.
