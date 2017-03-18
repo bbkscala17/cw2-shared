@@ -1,0 +1,33 @@
+iconst 4
+iconst 35
+iconst 2
+iconst 10
+iconst 33
+iadd
+iadd
+iadd
+iadd
+print
+iconst 10
+iconst 76
+idiv
+idup
+iadd
+print
+iconst 0
+iconst 5
+iconst 8
+iconst 5
+iconst 29
+iconst 3
+iadd
+isub
+iadd
+idup
+iadd
+iadd
+iconst 2
+iconst 1
+iadd
+iadd
+iadd
