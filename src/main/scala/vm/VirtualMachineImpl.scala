@@ -1,5 +1,6 @@
 package vm
 import bc.ByteCode
+import factory.VirtualMachineFactory
 
 import scala.collection.mutable
 
@@ -27,16 +28,13 @@ class VirtualMachineImpl extends VirtualMachine {
     * @return a new virtual machine
     */
   override def execute(bc: Vector[ByteCode]): VirtualMachine = {
-    //not finished
     println(bc)
-    while(bc.nonEmpty) {
-      val (bc2, vm2) = executeOne(bc)
-      println(bc2)
-      vm2.executeOne(bc2)
+    if(bc.length <= 2){
+      executeOne(bc)._2 // the virtual machine part of the tuple returned by executeOne
+    } else {
+      execute(bc.take(bc.length-2))
     }
-    this
   }
-
   /**
     * Executes the next bytecode in the vector of bytecodes.
     *
