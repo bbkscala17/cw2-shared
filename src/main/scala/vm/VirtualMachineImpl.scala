@@ -49,7 +49,8 @@ class VirtualMachineImpl extends VirtualMachine {
     * @return a tuple of a new vector of bytecodes and virtual machine
     */
   override def executeOne(bc: Vector[ByteCode]): (Vector[ByteCode], VirtualMachine) = {
-    (bc.drop(0), bc(0).execute(this))
+    val newVm = bc(0).execute(this)
+    (bc.drop(1), newVm)
   }
 
   /**
@@ -59,7 +60,7 @@ class VirtualMachineImpl extends VirtualMachine {
     * @return a new virtual machine with the integer `value` pushed
     */
   override def push(value: Int): VirtualMachine = {
-    internalStack = internalStack ++ Vector(value)
+    internalStack = Vector(value) ++ internalStack
     println("internal stack now is: ", internalStack)
     this
   }
