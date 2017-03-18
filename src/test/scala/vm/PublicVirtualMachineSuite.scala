@@ -73,9 +73,9 @@ class PublicVirtualMachineSuite extends FunSuite {
 
   //todo: this is currently returning an exception from file 3, need to fix the test so it tests the actual exception
   test("[2] other instructions should work importing form a file too") {
-    val bc = vmp.parse("programs/p03.vm")
+    val bc = vmp.parse("programs/p05.vm")
     var next = vm.executeOne(bc)
-    1 to 20 foreach { _ => {
+    1 to 17 foreach { _ => {
       next = next._2.executeOne(next._1)
     }}
   }
