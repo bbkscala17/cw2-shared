@@ -31,7 +31,9 @@ class VirtualMachineImpl extends VirtualMachine {
     */
   override def execute(bc: Vector[ByteCode]): VirtualMachine = {
     bc.foreach(b => println(b.toString))
-      this
+    val toExecute = bc.take(1) // take(1) means take 1 item not take item at positon 1
+    println("item to execute is " + toExecute(0).toString())
+    toExecute(0).execute(this)
   }
 
   /**
@@ -46,7 +48,9 @@ class VirtualMachineImpl extends VirtualMachine {
     * @param bc the vector of bytecodes
     * @return a tuple of a new vector of bytecodes and virtual machine
     */
-  override def executeOne(bc: Vector[ByteCode]): (Vector[ByteCode], VirtualMachine) = ???
+  override def executeOne(bc: Vector[ByteCode]): (Vector[ByteCode], VirtualMachine) = {
+    (bc.drop(0), bc(0).execute(this))
+  }
 
   /**
     * Pushes an integer value onto the virtual machine stack.
