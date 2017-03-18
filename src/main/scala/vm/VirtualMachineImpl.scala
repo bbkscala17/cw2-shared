@@ -1,10 +1,6 @@
 package vm
 import bc.ByteCode
 
-import factory.VirtualMachineFactory
-
-import scala.collection.mutable
-
 /**
   * Represents a stack-based virtual machine.
   *
@@ -26,15 +22,16 @@ class VirtualMachineImpl extends VirtualMachine {
     * of the bytecode objects in the vector.
     *
     * @param bc a vector of bytecodes
-    * @return a new virtual machine
+    * @return a new virtual machine, or the final new virtual machine if more than one instruction was executed
     */
   override def execute(bc: Vector[ByteCode]): VirtualMachine = {
-    var next = executeOne(bc)
-    1 until bc.length - 1 foreach { _ => {
-      next = next._2.executeOne(next._1)
+    var byteCodeVM = executeOne(bc)
+    for(i <- 1 to bc.length-1) {
+      val vm = byteCodeVM._2
+      val bytecode = byteCodeVM._1
+      byteCodeVM = vm.executeOne(bytecode)
     }
-    }
-    next._2 // the virtual machine part of the tuple returned by executeOne
+    byteCodeVM._2 // the virtual machine part of the tuple returned by the last executeOne() iteration
   }
 
   /**
