@@ -16,13 +16,25 @@ class PublicVirtualMachineSuite extends FunSuite {
   test("[1] Program 1 should return correct result") {
     val bc = vmp.parse("programs/p01.vm")
     val vm2 = vm.execute(bc)
-    assert(vm2.state.head == 9)
+    assert(vm2.state.isEmpty) // head value 9 was popped off by final print statement
   }
 
   test("[1] Program 5 should return correct result") {
     val bc = vmp.parse("programs/p05.vm")
     val vm2 = vm.execute(bc)
-    assert(vm2.state.head == 4)
+    assert(vm2.state.isEmpty) // head value 9 was popped off by final print statement
+  }
+
+  test("[6] Program 6 should return correct result") {
+    val bc = vmp.parse("programs/p06dave.vm")
+    val vm2 = vm.execute(bc)
+    assert(vm2.state.head == 13)
+  }
+
+  test("[7] Program 7 should return correct result") {
+    val bc = vmp.parse("programs/p07dave.vm")
+    val vm2 = vm.execute(bc)
+    assert(vm2.state.head == 78)
   }
 
   test("[2] iconst should work correctly") {
@@ -87,7 +99,7 @@ class PublicVirtualMachineSuite extends FunSuite {
   test("[2] other instructions should work importing form a file too") {
     val bc = vmp.parse("programs/p05.vm")
     var next = vm.executeOne(bc)
-    1 to 17 foreach { _ => {
+    1 to bc.length-1 foreach { _ => {
       next = next._2.executeOne(next._1)
     }}
   }
