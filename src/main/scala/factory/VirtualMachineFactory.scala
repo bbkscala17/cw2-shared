@@ -1,9 +1,8 @@
 package factory
 
 import bc._
-import sun.jvm.hotspot.jdi.VirtualMachineImpl
 import vendor.{ProgramParser, ProgramParserImpl}
-import vm.{VirtualMachine, VirtualMachineParser, VirtualMachineParserImpl}
+import vm.{VirtualMachine, VirtualMachineImpl, VirtualMachineParser, VirtualMachineParserImpl}
 
 /**
   * The `VirtualMachineFactory` follows the *factory pattern*. It provides
@@ -11,18 +10,9 @@ import vm.{VirtualMachine, VirtualMachineParser, VirtualMachineParserImpl}
   * implement each method such that it returns an object of the correct type.
   */
 object VirtualMachineFactory {
-  // TODO
   def byteCodeFactory: ByteCodeFactory = new ByteCodeFactoryImpl
-
-  // TODO
   def vendorParser: ProgramParser = new ProgramParserImpl
-
-  // TODO
   def byteCodeParser: ByteCodeParser = new ByteCodeParserImpl
-
-  // TODO
   def virtualMachineParser: VirtualMachineParser = new VirtualMachineParserImpl
-
-  // TODO
-  def virtualMachine: VirtualMachine = ???
+  def virtualMachine: VirtualMachine = new VirtualMachineImpl
 }
