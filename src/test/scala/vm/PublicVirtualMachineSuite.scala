@@ -19,6 +19,14 @@ class PublicVirtualMachineSuite extends FunSuite {
     assert(vm2.state.head == 1)
   }
 
+  test("[2] icston should be able to store multiple values if called more than once") {
+    val bc = vmp.parseString("iconst 1\niconst 3")
+    var next = vm.executeOne(bc)
+    assert(next._2.state.head == 1)
+    next = next._2.executeOne(next._1)
+    assert(next._2.state.head == 3)
+  }
+
   test("[2] iadd should work correctly") {
     val bc  = vmp.parseString("iconst 1\niconst 2\niadd")
     var next = vm.executeOne(bc)

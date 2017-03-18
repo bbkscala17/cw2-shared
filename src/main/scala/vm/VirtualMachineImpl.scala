@@ -29,10 +29,7 @@ class VirtualMachineImpl extends VirtualMachine {
     * @param bc a vector of bytecodes
     * @return a new virtual machine
     */
-  override def execute(bc: Vector[ByteCode]): VirtualMachine = {
-    bc.foreach(b => println(b.toString))
-      this
-  }
+  override def execute(bc: Vector[ByteCode]): VirtualMachine = ???
 
   /**
     * Executes the next bytecode in the vector of bytecodes.
@@ -46,7 +43,9 @@ class VirtualMachineImpl extends VirtualMachine {
     * @param bc the vector of bytecodes
     * @return a tuple of a new vector of bytecodes and virtual machine
     */
-  override def executeOne(bc: Vector[ByteCode]): (Vector[ByteCode], VirtualMachine) = ???
+  override def executeOne(bc: Vector[ByteCode]): (Vector[ByteCode], VirtualMachine) = {
+    (bc.drop(1), bc.head.execute(this))
+  }
 
   /**
     * Pushes an integer value onto the virtual machine stack.
@@ -55,8 +54,7 @@ class VirtualMachineImpl extends VirtualMachine {
     * @return a new virtual machine with the integer `value` pushed
     */
   override def push(value: Int): VirtualMachine = {
-    internalStack = internalStack ++ Vector(value)
-    println("internal stack now is: ", internalStack)
+    internalStack =  Vector(value) ++ internalStack
     this
   }
 
@@ -68,10 +66,7 @@ class VirtualMachineImpl extends VirtualMachine {
     */
   override def pop(): (Int, VirtualMachine) = {
     val firstStackValue = internalStack(0)
-    // this will take all the elements of the internal stack except
-    // the first one and assign them back to internal stack
     internalStack = internalStack.takeRight(internalStack.length-1)
-    println("internal stack now is: ", internalStack)
     (firstStackValue, this)
   }
 
