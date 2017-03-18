@@ -8,10 +8,22 @@ class PublicVirtualMachineSuite extends FunSuite {
   val bcp = VirtualMachineFactory.byteCodeParser
   val vm  = VirtualMachineFactory.virtualMachine
 
-//  test("[10] a virtual machine should execute a program") {
-//    val bc  = vmp.parse("programs/p05.vm")
-//    val vm2 = vm.execute(bc)
-//  }
+  test("[10] a virtual machine should execute a program") {
+    val bc  = vmp.parse("programs/p05.vm")
+    val vm2 = vm.execute(bc)
+  }
+
+  test("[1] Program 1 should return correct result") {
+    val bc = vmp.parse("programs/p01.vm")
+    val vm2 = vm.execute(bc)
+    assert(vm2.state.head == 9)
+  }
+
+  test("[1] Program 5 should return correct result") {
+    val bc = vmp.parse("programs/p05.vm")
+    val vm2 = vm.execute(bc)
+    assert(vm2.state.head == 4)
+  }
 
   test("[2] iconst should work correctly") {
     val bc  = vmp.parseString("iconst 1")
