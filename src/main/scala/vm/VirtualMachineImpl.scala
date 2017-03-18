@@ -29,7 +29,16 @@ class VirtualMachineImpl extends VirtualMachine {
     * @param bc a vector of bytecodes
     * @return a new virtual machine
     */
-  override def execute(bc: Vector[ByteCode]): VirtualMachine = ???
+  override def execute(bc: Vector[ByteCode]): VirtualMachine = {
+    //not finished
+    println(bc)
+    while(bc.nonEmpty) {
+      val (bc2, vm2) = executeOne(bc)
+      println(bc2)
+      vm2.executeOne(bc2)
+    }
+    this
+  }
 
   /**
     * Executes the next bytecode in the vector of bytecodes.
@@ -66,7 +75,7 @@ class VirtualMachineImpl extends VirtualMachine {
     */
   override def pop(): (Int, VirtualMachine) = {
     val firstStackValue = internalStack(0)
-    internalStack = internalStack.takeRight(internalStack.length-1)
+    internalStack = internalStack.drop(1)
     (firstStackValue, this)
   }
 
