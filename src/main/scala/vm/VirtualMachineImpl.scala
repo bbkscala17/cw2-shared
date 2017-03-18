@@ -1,11 +1,5 @@
 package vm
 import bc.ByteCode
-import factory.VirtualMachineFactory
-
-import scala.collection.mutable
-
-//TODO machineunderflowexception
-
 
 /**
   * Represents a stack-based virtual machine.
@@ -31,13 +25,14 @@ class VirtualMachineImpl extends VirtualMachine {
     * @return a new virtual machine
     */
   override def execute(bc: Vector[ByteCode]): VirtualMachine = {
-    println(bc)
-    if(bc.length <= 2){
-      executeOne(bc)._2 // the virtual machine part of the tuple returned by executeOne
-    } else {
-      execute(bc.take(bc.length-2))
+    var next = executeOne(bc)
+    1 until bc.length - 1 foreach { _ => {
+      next = next._2.executeOne(next._1)
     }
+    }
+    next._2 // the virtual machine part of the tuple returned by executeOne
   }
+
   /**
     * Executes the next bytecode in the vector of bytecodes.
     *
