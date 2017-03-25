@@ -20,6 +20,7 @@ class VirtualMachineParserImpl extends VirtualMachineParser with ByteCodeValues{
     * @return a vector of bytecodes
     */
   override def parse(file: String): Vector[ByteCode] = {
+    //todo: diego ill write tests for this file?
     parseInstructionList(programParserImpl.parse(file))
   }
 

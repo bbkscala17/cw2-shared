@@ -11,6 +11,7 @@ import bc.ByteCode
   *
   */
 
+//todo: dave you want to test this one? ill grab the other one :P
 class VirtualMachineImpl extends VirtualMachine {
 
   private var internalStack: Vector[Int] = Vector()

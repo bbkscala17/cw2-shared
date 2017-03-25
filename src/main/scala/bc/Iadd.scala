@@ -17,6 +17,7 @@ class Iadd extends ByteCode {
     try {
       vm.push(vm.pop()._1 + vm.pop()._1)
     } catch {
+      //todo: make sure throw the appropiate exception for each of the edge cases
       case e: Exception => throw new MachineUnderflowException(e.toString)
     }
   }
