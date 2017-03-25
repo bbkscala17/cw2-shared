@@ -26,7 +26,7 @@ class VirtualMachineImpl extends VirtualMachine {
     */
   override def execute(bc: Vector[ByteCode]): VirtualMachine = {
     var byteCodeVM = executeOne(bc)
-    for(i <- 1 to bc.length-1) {
+    for(i <- 1 until bc.length) {
       val vm = byteCodeVM._2
       val bytecode = byteCodeVM._1
       byteCodeVM = vm.executeOne(bytecode)
