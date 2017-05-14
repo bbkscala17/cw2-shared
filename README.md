@@ -8,5 +8,5 @@ https://github.com/bbkscala17/cw2-shared
 
 https://github.com/bbkscala17/SDP-repo/tree/master/coursework/cw-two
 
-https://github.com/Diego-Romero/SDP/tree/master/coursework/cw-two
+https://github.com/Diego-Romero/SDP/
 
