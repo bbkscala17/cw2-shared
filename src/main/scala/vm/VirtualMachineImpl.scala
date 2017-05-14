@@ -11,7 +11,6 @@ import bc.ByteCode
   *
   */
 
-//todo: dave you want to test this one? ill grab the other one :P
 class VirtualMachineImpl extends VirtualMachine {
 
   private var internalStack: Vector[Int] = Vector()
@@ -32,7 +31,8 @@ class VirtualMachineImpl extends VirtualMachine {
       val bytecode = byteCodeVM._1
       byteCodeVM = vm.executeOne(bytecode)
     }
-    byteCodeVM._2 // the virtual machine part of the tuple returned by the last executeOne() iteration
+    byteCodeVM._2
+    // the virtual machine part of the tuple returned by the last executeOne() iteration
   }
 
   /**

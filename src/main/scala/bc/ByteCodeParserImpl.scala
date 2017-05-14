@@ -14,7 +14,6 @@ class ByteCodeParserImpl extends ByteCodeParser {
     * @return a vector of `ByteCode` objects
     */
   override def parse(bc: Vector[Byte]): Vector[ByteCode] = {
-    //TODO add a comment explaining what the code is doing, what the vars and why done this way
     val factory = new ByteCodeFactoryImpl
     var toReturn = new ListBuffer[ByteCode]
 

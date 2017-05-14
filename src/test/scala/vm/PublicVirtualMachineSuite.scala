@@ -95,7 +95,6 @@ class PublicVirtualMachineSuite extends FunSuite {
     assert(next._2.state.head == 1)
   }
 
-  //todo: this is currently returning an exception from file 3, need to fix the test so it tests the actual exception
   test("[2] other instructions should work importing form a file too") {
     val bc = vmp.parse("programs/p05.vm")
     var next = vm.executeOne(bc)

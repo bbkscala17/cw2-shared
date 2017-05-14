@@ -82,10 +82,10 @@ object TreeTraversals {
   getIfs(asTree(file))
 
   def hasVarDef(tree: Tree): Boolean =
-    getVars(tree).size != 0
+    getVars(tree).nonEmpty
 
   def hasValDef(tree: Tree): Boolean = {
-    getVals(tree).size != 0
+    getVals(tree).nonEmpty
   }
 
   def hasWhileLoop(tree: Tree): Boolean = {

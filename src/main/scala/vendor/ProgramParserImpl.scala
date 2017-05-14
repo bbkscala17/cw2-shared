@@ -37,7 +37,6 @@ class ProgramParserImpl extends ProgramParser {
     * @return and InstructionList
     */
    private def parseLines(lines: Array[String]): InstructionList = {
-     //todo: make sure to test all the edge cases.
     var instructionList = new ListBuffer[Instruction]
     for (line <- lines) {
       val fields = line.split(" ")
